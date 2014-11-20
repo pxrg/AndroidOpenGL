@@ -39,7 +39,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
 //        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
 
         // Sempre atualizando a tela chamando o onDrawFrame do Renderer
-        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+//        setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
     }
     private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
     private float mPreviousX;
@@ -50,10 +50,19 @@ public class MyGLSurfaceView extends GLSurfaceView {
 //        move(e);
 //        rotate(e);
 //        zoom(e);
-        movePoint(e);
+//        movePoint(e);
+        nextPoint(e);
         return true;
     }
 
+    private void nextPoint(MotionEvent e) {
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                mRenderer.next();
+                requestRender();
+        }
+    }
+    
     private void movePoint(MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:

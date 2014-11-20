@@ -62,6 +62,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private Square mSquare;
     private DrawBase mLine;
     private DrawBase mPoint;
+    private DrawBase mCircle;
     private float width;
     private float height;
     private float mAngle;
@@ -80,6 +81,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         mSquare = new Square();
         mLine = new Line();
         mPoint = new Point();
+        mCircle = new Circle();
 
         mScaleX = 1;
         mScaleY = 1;
@@ -120,14 +122,39 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 //        mTriangle.draw(gl);
 
         // Draw Line
-        mLine.draw(gl);
+//        mLine.draw(gl);
 
         gl.glTranslatef(mMoveX, mMoveY, 0);
         // Draw point
-        mPoint.draw(gl);
-//        // Ao setar para ser redesenhada continuamente (SurfaceView) 
-//        // o codigo abaixo que faz a rotacao continua
-//        mAngle += 1.0f;
+//        mPoint.draw(gl);
+
+        mCircle.draw(gl);
+        // Ao setar para ser redesenhada continuamente (SurfaceView) 
+//        rotateAngle();
+        moveHorizontalCoord();
+
+    }
+
+    private void rotateAngle() {
+        // o codigo abaixo que faz a rotacao continua
+        mAngle += 1.0f;
+    }
+    int count = 0;
+    boolean up = true;
+    float[] positions = new float[]{0.0f, 0.2f, 0.4f, 0.6f, 0.8f, 0.7f, 0.5f, 0.3f};
+
+    public void next() {
+        if (count == (positions.length - 1)) {
+            up = false;
+        } else if (count == 0) {
+            up = true;
+        }
+        count += up ? 1 : -1;
+//        mMoveX = 
+                mMoveY = positions[count];
+    }
+
+    private void moveHorizontalCoord() {
         mMoveX += mMoveX < -2 ? 4 : -0.02f;
         if (mMoveY != 0.0 && !moving) {
             mMoveY += mMoveY > 0.0 ? -0.05f : 0.05f;
